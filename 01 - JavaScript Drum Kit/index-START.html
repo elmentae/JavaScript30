@@ -58,15 +58,29 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-  window.addEventListener("keyup", function(event) {
+  const playAudioOnKeyUp = (event) => {
+    //select divs and audio files in DOM associated with pressed keyboard keys
     const keyAudio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    const keyDiv = document.querySelector(`div[data-key="${event.keyCode}"]`);
     if(!keyAudio) return; //stops the function from running if there is no corresponding DOM element
     keyAudio.currentTime = 0; //rewinds the audio file to the start
     keyAudio.play();
-    const keyDiv = document.querySelector(`div[data-key="${event.keyCode}"]`);
     if(!keyDiv) return; //stops the function from running if there is no corresponding DOM element
     keyDiv.classList.add("playing");
+  };
+
+  function removeTransition(event) {
+    if(event.propertyName !== "transform") return; //skip it if the event is not a transorm event
+    this.classList.remove("playing");
+  };
+  
+  const keys = document.querySelectorAll(".key");
+  
+  keys.forEach(key => {
+    key.addEventListener("transitionend", removeTransition);
   });
+
+  window.addEventListener("keyup", playAudioOnKeyUp);
 </script>
 
 
