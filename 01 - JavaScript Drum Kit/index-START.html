@@ -58,7 +58,15 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
+  window.addEventListener("keyup", function(event) {
+    const keyAudio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    if(!keyAudio) return; //stops the function from running if there is no corresponding DOM element
+    keyAudio.currentTime = 0; //rewinds the audio file to the start
+    keyAudio.play();
+    const keyDiv = document.querySelector(`div[data-key="${event.keyCode}"]`);
+    if(!keyDiv) return; //stops the function from running if there is no corresponding DOM element
+    keyDiv.classList.add("playing");
+  });
 </script>
 
 
