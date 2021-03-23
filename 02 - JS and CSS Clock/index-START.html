@@ -86,9 +86,8 @@
       //convert current time into corresponding degrees count
       const secondsDegrees = 360/60 * seconds + 90;
       const minutesDegrees = 360/60 * minutes + 90;
-      const hoursDegrees = 360/60 * hours + 90;
+      const hoursDegrees = 360/12 * hours + 90;
       
-      console.log(hoursDegrees);
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
       minHand.style.transform = `rotate(${minutesDegrees}deg)`;
       hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
