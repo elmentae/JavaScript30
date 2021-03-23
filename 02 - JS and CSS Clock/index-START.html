@@ -76,18 +76,22 @@
     const hourHand = document.querySelector(".hour-hand");
 
     const setDate = () => {
-      const now = new Date();
-      const seconds = now.getSeconds();
-      const secondsDegrees = 360/60 * seconds;
       if(!secondHand) return; //stop script if no second hand found
-      if(!minHand) return; //stop script if no second hand found
-      if(!hourHand) return; //stop script if no second hand found
-      console.log(secondsDegrees);
+      if(!minHand) return; //stop script if no minute hand found
+      if(!hourHand) return; //stop script if no hour hand found
+      const now = new Date(); //get current datetime 
+      const seconds = now.getSeconds(); //get current seconds count
+      const minutes = now.getMinutes(); //get current minutes count
+      const hours = now.getHours(); //get current hours count
+      //convert current time into corresponding degrees count
+      const secondsDegrees = 360/60 * seconds + 90;
+      const minutesDegrees = 360/60 * minutes + 90;
+      const hoursDegrees = 360/60 * hours + 90;
+      
+      console.log(hoursDegrees);
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-
-      const minutes = now.getMinutes();
-      const hours = now.getHours();
-
+      minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
     };
 
     setInterval(setDate, 1000);
