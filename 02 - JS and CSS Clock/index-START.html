@@ -71,12 +71,23 @@
   </style>
 
   <script>
+    const secondHand = document.querySelector(".second-hand");
+    const minHand = document.querySelector(".min-hand");
+    const hourHand = document.querySelector(".hour-hand");
+
     const setDate = () => {
       const now = new Date();
       const seconds = now.getSeconds();
+      const secondsDegrees = 360/60 * seconds;
+      if(!secondHand) return; //stop script if no second hand found
+      if(!minHand) return; //stop script if no second hand found
+      if(!hourHand) return; //stop script if no second hand found
+      console.log(secondsDegrees);
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
       const minutes = now.getMinutes();
       const hours = now.getHours();
-      
+
     };
 
     setInterval(setDate, 1000);
