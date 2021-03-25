@@ -21,7 +21,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
 
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter:blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
+    
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +60,17 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll(".controls input");
+    function handleUpdate() {
+      if(inputs.length < 3) return; //stop execution as not all controls are present on the page
+      const suffix = this.dataset.sizing || "";
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    };
+    //add event listeners for each control element
+    inputs.forEach(input => {
+      input.addEventListener('change', handleUpdate);
+      input.addEventListener('mousemove', handleUpdate);
+    });
   </script>
 
 </body>
