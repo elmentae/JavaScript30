@@ -44,7 +44,7 @@
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-    const firstLastName = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    const firstLastName = inventors.map(inventor => `${inventor.first} ${inventor.last}`); //map iterates over each element of the array and modifies it according to the function. Always returns the array of the same size 
 
     console.table(firstLastName);
 
@@ -58,31 +58,58 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-    const totalYears = inventors.reduce((total, inventor) => { return total + (inventor.passed - inventor.year);
-    }, 0);
+    const totalYears = inventors.reduce((total, inventor) => { 
+      return total + (inventor.passed - inventor.year);
+    }, 0); // .reduce iterates over each element of the array, all the while keeping a running total; since the very first total is always 0, do not forget to include 0 in the function as a default value
 
     console.table(totalYears);
 
     // 5. Sort the inventors by years lived
-    // const lived = inventors.sort((a,b) => {
-    //   const yearsLi
-    // });
+    const oldest = inventors.sort((inventor1, inventor2) => {
+      const ageInventor1 = inventor1.passed - inventor1.year
+      const ageInventor2 = inventor2.passed - inventor2.year
+      //sort always compares only 2 adjacent elements at a time, and then ranks them
+      return ageInventor1 > ageInventor2 ? -1 : 1
+    });
 
+    console.table(oldest);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    const category = document.querySelector(".mw-category"); // get the Div
+    if(category) { //only executes code if DOM element 'category' is found
+      const links = Array.from(category.querySelectorAll("a")); // get all the links within that Div. Use Array.from to convert a node list into an array
 
-
+      const de = links
+                    .map(link => link.innerText) //this will map the array
+                    .filter(streetName => streetName.includes("de")); //this will filter the array
+    };
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((person1, person2) => { //initiate sorting
+      const [last1, first1] = person1.split(", "); //split the first person data into firstName and lastName
+      const [last2, first2] = person2.split(", "); //split the second person data into firstName and lastName
+      return last1 > last2 ? 1 : -1; // go through each element and sort them alphabetically according to their last names
+    });
 
-
+    console.log(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    
+    const transportation = data.reduce((object, item) => { //since we need to calculate a running total of sorts, use .reduce
+      if(!object[item]) { //check if key "item" exists in the object we are returning at the end of the function
+        object[item] = 0; //if not => create it
+      }
+      object[item]++; //otherwise/then increment the counter for this specific key by one
+      return object;
+    }, {}); //do not forget to start with an empty object on the very first iteration
+
+    console.log(transportation);
 
   </script>
 </body>
