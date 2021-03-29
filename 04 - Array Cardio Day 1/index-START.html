@@ -100,6 +100,16 @@
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    
+    const transportation = data.reduce((object, item) => { //since we need to calculate a running total of sorts, use .reduce
+      if(!object[item]) { //check if key "item" exists in the object we are returning at the end of the function
+        object[item] = 0; //if not => create it
+      }
+      object[item]++; //otherwise/then increment the counter for this specific key by one
+      return object;
+    }, {}); //do not forget to start with an empty object on the very first iteration
+
+    console.log(transportation);
 
   </script>
 </body>
