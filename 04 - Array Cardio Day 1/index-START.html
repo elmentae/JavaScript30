@@ -79,17 +79,23 @@
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
     const category = document.querySelector(".mw-category"); // get the Div
-    const links = Array.from(category.querySelectorAll("a")); // get all the links within that Div. Use Array.from to convert a node list into an array
+    if(category) { //only executes code if DOM element 'category' is found
+      const links = Array.from(category.querySelectorAll("a")); // get all the links within that Div. Use Array.from to convert a node list into an array
 
-    const de = links
-                  .map(link => link.innerText) //this will map the array
-                  .filter(streetName => streetName.includes("de")); //this will filter the array
-
+      const de = links
+                    .map(link => link.innerText) //this will map the array
+                    .filter(streetName => streetName.includes("de")); //this will filter the array
+    };
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((person1, person2) => { //initiate sorting
+      const [last1, first1] = person1.split(", "); //split the first person data into firstName and lastName
+      const [last2, first2] = person2.split(", "); //split the second person data into firstName and lastName
+      return last1 > last2 ? 1 : -1; // go through each element and sort them alphabetically according to their last names
+    });
 
-
+    console.log(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
